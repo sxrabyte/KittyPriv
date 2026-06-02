@@ -17,26 +17,31 @@ def run_command(cmd: str) -> str:
     except Exception as e:
         return f"Error: {e}"
 
-#Enumerating privilege escalation vectors
-def enumerate_pe() -> list[Finding]:
+def enumerate_pe() -> Finding:
     findings = []
 
     findings.append(Finding(
-        label="SUID binaries",
-        output=run_command("find / -perm -4000 -type f 2>/dev/null"),
-        highlight=True
+        label = "World writable files",
+        output = "find / -writable -type f 2>/dev/null | grep -v proc",
+        highlight = True
     ))
 
     findings.append(Finding(
-        label="SGID binaries",
-        output=run_command("find / -perm -2000 -type f 2>/dev/null"),
-        highlight=False
+        label = "World writable directories",
+        output = "find / -writable -type d 2>/dev/null",
+        highlight = False
     ))
 
     findings.append(Finding(
-        label="binaries with linux capabilities",
-        output=run_command("getcap -r / 2>/dev/null"),
-        highlight=False
+        label = "Path hijacking",
+        output = "echo $PATH",
+        highlight = False
+    ))
+
+    findings.append(Finding(
+        label = "sensitive config writability",
+        output = "ls -la /etc/passwd /etc/shadow /etc/sudoers",
+        highlight = True
     ))
 
     return findings
