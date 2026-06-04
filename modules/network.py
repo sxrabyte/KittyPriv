@@ -27,45 +27,44 @@ def enumerate_pe() -> list[Finding]:
 
     findings.append(Finding(
         label = "Processes",
-        output = "ps aux",
+        output = run_command("ps aux"),
         highlight = False,
     ))
 
     findings.append(Finding(
         label = "Process tree with parents",
-        output = "ps -ef --forest",
+        output = run_command("ps -ef --forest"),
         highlight = False
     ))
 
     findings.append(Finding(
         label = "Listening TCP Ports",
-        output = "ss -tlnp",
+        output = run_command("ss -tlnp"),
         highlight = True
     ))
 
     findings.append(Finding(
         label = "Listening UDP Ports",
-        output = "ss -ulnp",
+        output = run_command("ss -ulnp"),
         highlight = False
     ))
 
     findings.append(Finding(
         label = "Network Interfaces & IPs",
-        output = "ip a / ifconfig",
+        output = run_command("ip a / ifconfig"),
         highlight = False
     ))
 
     findings.append(Finding(
         label = "local hostname mappings",
-        output = "cat /etc/hosts",
+        output = run_command("cat /etc/hosts"),
         highlight = False
     ))
 
     findings.append(Finding(
         label = "ARP table",
-        output = "arp -a",
+        output = run_command("arp -a"),
         highlight = False
     ))
-
 
     return findings

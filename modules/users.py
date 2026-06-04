@@ -49,13 +49,13 @@ def enumerate_pe() -> list[Finding]:
 
     findings.append(Finding(
         label = "/etc/group",
-        output = "cat /etc/group",
+        output = run_command("cat /etc/group"),
         highlight = False
     ))
 
     findings.append(Finding(
         label = "group",
-        output = "groups",
+        output = run_command("groups"),
         highlight = False
     ))
 
